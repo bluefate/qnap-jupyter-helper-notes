@@ -1,6 +1,10 @@
 # qnap-jupyter-helper-notes
 
 <p align="center">
+  <img src="assets/banner.png" alt="qnap-jupyter-helper-notes — Compose stacks and setup notes for QNAP, Jupyter, Spark, and Hadoop" width="100%" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
   <img src="https://img.shields.io/badge/QNAP-1D1D1D?style=for-the-badge&logo=qnap&logoColor=white" alt="QNAP" />
   <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" />
@@ -8,11 +12,6 @@
   <img src="https://img.shields.io/badge/Hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black" alt="Hadoop" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
   <img src="https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge" alt="MIT" />
-</p>
-
-<p align="center">
-  <strong>Compose stacks + setup notes</strong> for a QNAP NAS and a local Jupyter / Spark / Hadoop lab,<br />
-  plus a curated Python package cheat sheet.
 </p>
 
 ---
