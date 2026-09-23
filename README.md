@@ -1,64 +1,98 @@
-## 📁 Helpers
+# qnap-jupyter-helper-notes
 
-**Random useful notes, Docker Compose samples, and Python package references.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/QNAP-1D1D1D?style=for-the-badge&logo=qnap&logoColor=white" alt="QNAP" />
+  <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" />
+  <img src="https://img.shields.io/badge/Apache%20Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" alt="Spark" />
+  <img src="https://img.shields.io/badge/Hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black" alt="Hadoop" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge" alt="MIT" />
+</p>
 
-## 📚 Table of Contents
+<p align="center">
+  <strong>Compose stacks + setup notes</strong> for a QNAP NAS and a local Jupyter / Spark / Hadoop lab,<br />
+  plus a curated Python package cheat sheet.
+</p>
 
-- [QNAP NAS Compose](#-docker-composeqnapyml--for-qnap-nas)
-- [Jupyter + Spark + Hadoop](#-docker-composejupyteryml--jupyter--spark--hadoop)
-- [Python Package Reference](Python_Package.md)
-- [Jupyter Setup Guide](jupyter.md)
+---
 
-## 📂 Files in this repo
+## What's inside
 
-| File | Description |
-|------|-------------|
-| `docker-compose.qnap.yml` | Multi-service QNAP Container Station sample (Portainer, Gitea, Drone, Pi-hole, etc.) |
-| `docker-compose.jupyter.yml` | Jupyter, Spark, and Hadoop lab environment |
-| `jupyter.md` | Step-by-step guide for the Jupyter compose stack |
-| `Python_Package.md` | Curated Python package install reference by category |
-| `LICENSE` | MIT License |
+| File | What it is |
+|------|------------|
+| [`docker-compose.qnap.yml`](docker-compose.qnap.yml) | Multi-service QNAP Container Station sample (Portainer, Gitea, Drone, Pi-hole, …) |
+| [`docker-compose.jupyter.yml`](docker-compose.jupyter.yml) | Jupyter + Spark + Hadoop lab stack |
+| [`jupyter.md`](jupyter.md) | Step-by-step guide for the Jupyter stack |
+| [`Python_Package.md`](Python_Package.md) | Python packages by category (install + upgrade) |
+| [`LICENSE`](LICENSE) | MIT |
 
-## 📦 `docker-compose.qnap.yml` – For QNAP NAS
+---
 
-Sample `docker-compose` file intended for use within **QNAP Container Station** to deploy multiple containers simultaneously.
+## Quick start
 
-### 🛠 Usage Options:
+**QNAP / Container Station**
 
-* Can be deployed via **Portainer**, if available.
-* Alternatively, use **"Create Application"** under the **Create** tab in Container Station.
+1. Open Portainer or Container Station → Create Application  
+2. Paste / upload [`docker-compose.qnap.yml`](docker-compose.qnap.yml)  
+3. Prefer named volumes created in Portainer for reuse
 
-### 💡 Volume Creation:
+**Jupyter lab (local)**
 
-* It is recommended to create named volumes via **Portainer** for better control and reusability.
+```bash
+docker compose -f docker-compose.jupyter.yml up --build
+```
 
-## 📦 `docker-compose.jupyter.yml` – Jupyter + Spark + Hadoop
+| Service | URL |
+|---------|-----|
+| JupyterLab | http://localhost:8888 |
+| Spark Master UI | http://localhost:8080 |
+| HDFS NameNode UI | http://localhost:9870 |
 
-Sets up a lightweight big data lab using Docker containers for:
+Full walkthrough → [`jupyter.md`](jupyter.md)
 
-* **Hadoop HDFS**: NameNode + DataNode
-* **Apache Spark**: Master-only (standalone mode)
-* **Jupyter Notebook**: PySpark-enabled kernel
+---
 
-### 🗂 Notebook Persistence:
+## QNAP compose
 
-Mounts a local folder from your Windows machine into the notebook container so that your `.ipynb` files are stored and accessible locally:
+Sample stack for **QNAP Container Station** — deploy several containers in one shot.
+
+- Deploy via **Portainer**, or Container Station → **Create** → **Create Application**
+- Create **named volumes** in Portainer when you can — easier to reuse and back up
+
+---
+
+## Jupyter + Spark + Hadoop
+
+Lightweight big-data lab in Docker:
+
+```mermaid
+flowchart LR
+  J[JupyterLab :8888] --> S[Spark Master :8080]
+  J --> H[HDFS NameNode :9870]
+  H --- D[DataNode]
+```
+
+- **Hadoop HDFS** — NameNode + DataNode  
+- **Apache Spark** — master (standalone)  
+- **Jupyter** — PySpark-ready notebook
+
+### Persist notebooks
+
+Mount a host folder into the Jupyter container:
 
 ```yaml
 volumes:
-  - "/c/Users/yourusername/somefolder:/home/jovyan/somefolder/"
+  # Windows
+  - "/c/Users/yourusername/notebooks:/home/jovyan/work"
+  # macOS / Linux
+  # - "./notebooks:/home/jovyan/work"
 ```
 
-Replace `yourusername` and `somefolder` with your actual Windows path.
+Swap the left side for your real path.
 
-### 🌐 Web Interfaces
+---
 
-| Component       | URL                     | Purpose                            |
-| --------------- | ----------------------- | ---------------------------------- |
-| **HDFS UI**     | `http://localhost:9870` | View file system status and health |
-| **Spark UI**    | `http://localhost:8080` | Monitor Spark master and workers   |
-| **Jupyter Lab** | `http://localhost:8888` | Access Jupyter notebooks           |
+## License
 
-## 📄 License
-
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE).
