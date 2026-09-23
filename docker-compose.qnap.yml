@@ -124,12 +124,12 @@ services:
       - DRONE_DATABASE_DRIVER=sqlite3
       - DRONE_DATADOG_ENABLED=false
       - DRONE_DATADOG_ENDPOINT=https://stats.drone.ci/api/v1/series
-      - DRONE_GITEA_CLIENT_ID=get_client_id_here
-      - DRONE_GITEA_CLIENT_SECRET=get_client_secret_here
+      - DRONE_GITEA_CLIENT_ID=${DRONE_GITEA_CLIENT_ID:-get_client_id_here}
+      - DRONE_GITEA_CLIENT_SECRET=${DRONE_GITEA_CLIENT_SECRET:-get_client_secret_here}
       - DRONE_GITEA_SERVER=http://10.10.10.23:3000/
       - DRONE_GITEA_URL=http://gitea:3000
       - DRONE_GIT_ALWAYS_AUTH=false
-      - DRONE_RPC_SECRET=set_secret_here_for_drone
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET:-set_secret_here_for_drone}
       - DRONE_RUNNER_ARCH=amd64
       - DRONE_RUNNER_OS=linux
       - DRONE_SERVER_HOST=10.10.10.24
@@ -162,7 +162,7 @@ services:
       - DRONE_PLATFORM_OS=linux
       - DRONE_RPC_HOST=10.10.10.24
       - DRONE_RPC_PROTO=http
-      - DRONE_RPC_SECRET=set_secret_here_for_drone
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET:-set_secret_here_for_drone}
       - DRONE_RUNNER_CAPACITY=2
       - DRONE_RUNNER_NAME=dronerunners
     networks:
@@ -180,7 +180,7 @@ services:
     environment:
       - TZ=America/New_York
       - SERVERIP=10.10.10.25
-      - WEBPASSWORD=set_password_here
+      - WEBPASSWORD=${WEBPASSWORD:-set_password_here}
     volumes:
       - /share/Docker/pihole/etc:/etc/pihole
       - /share/Docker/pihole/dnsmasq:/etc/dnsmasq.d

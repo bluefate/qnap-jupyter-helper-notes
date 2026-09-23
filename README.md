@@ -22,6 +22,7 @@
 |------|------------|
 | [`docker-compose.qnap.yml`](docker-compose.qnap.yml) | Multi-service QNAP Container Station sample (Portainer, Gitea, Drone, Pi-hole, …) |
 | [`docker-compose.jupyter.yml`](docker-compose.jupyter.yml) | Jupyter + Spark + Hadoop lab stack |
+| [`.env.example`](.env.example) | Template for Drone / Pi-hole secrets (copy to `.env`) |
 | [`jupyter.md`](jupyter.md) | Step-by-step guide for the Jupyter stack |
 | [`Python_Package.md`](Python_Package.md) | Python packages by category (install + upgrade) |
 | [`LICENSE`](LICENSE) | MIT |
@@ -32,9 +33,10 @@
 
 **QNAP / Container Station**
 
-1. Open Portainer or Container Station → Create Application  
-2. Paste / upload [`docker-compose.qnap.yml`](docker-compose.qnap.yml)  
-3. Prefer named volumes created in Portainer for reuse
+1. Copy secrets template: `cp .env.example .env` and fill in values  
+2. Open Portainer or Container Station → Create Application  
+3. Paste / upload [`docker-compose.qnap.yml`](docker-compose.qnap.yml)  
+4. Prefer named volumes created in Portainer for reuse
 
 **Jupyter lab (local)**
 
